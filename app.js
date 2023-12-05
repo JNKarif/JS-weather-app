@@ -13,6 +13,8 @@ step 3: addEventListener>>>to searchBox because from input we will get data
 step 4: call the function inside addEventListener and give the city parameter argument as searchBox.value because value is the builtin
 */
 const searchBtn = document.querySelector(".search button");
+// to change weather icon dynamically
+const weatherIcon = document.querySelector(".weather-icon");
 
 async function checkWeather(city) {
   const res = await fetch(apiUrl + city + `&appid=${apiKey}`);
@@ -29,6 +31,18 @@ async function checkWeather(city) {
     "°c"; /*Math.round() to make the floating number to integer */
   document.querySelector(".humidity").innerHTML = data.main.humidity + " %";
   document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+
+  if (data.weather[0].main == "Clouds") {
+    weatherIcon.src = "Images/clouds.png";
+  } else if (data.weather[0].main == "Clear") {
+    weatherIcon.src = "Images/clear.png";
+  } else if (data.weather[0].main == "Drizzle") {
+    weatherIcon.src = "Images/drizzle.png";
+  } else if (data.weather[0].main == "Mist") {
+    weatherIcon.src = "Images/mist.png";
+  } else if (data.weather[0].main == "Snow") {
+    weatherIcon.src = "Images/snow.png";
+  }
 }
 
 searchBtn.addEventListener("click", () => {
